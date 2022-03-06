@@ -1,20 +1,26 @@
+from logging.handlers import WatchedFileHandler
+from pyexpat import model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from matplotlib import is_interactive
 #from matplotlib.pyplot import title
 
 #create comment here
 class User(AbstractUser):
     pass
-    #watched_listing=models.M2M('Listing', related_name='watchers')
-
 
 #bid keeps track of the user id, the amount of money bid on ther certain id, the item(listing) that was bid on, and the bidder's unique user information as a way to track   id 
  #   amount 
  #   listing 
  #   bidder 
 class Bid(models.Model):
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-    pass
+    #id = 
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    bidder =models.ForeignKey(User, on_delete=models.CASCADE, related_name="bids") 
+    time = models.DateTimeField(auto_now_add=True, blank=True)
+    
+    def __str__(self):
+        return f"{self.bidder} put a bid in for {self.amount}"
 
 #it's a catoary that tracks the ID, and the name associated with the type of catagory 
 class Category():
@@ -27,13 +33,29 @@ class Category():
 #    is_active 
 #    category 
 #    timestamp 
+#TODO fix the id 
 class Listing():
-    pass
+    #id = 
+    title = models.CharField(max_length=64)
+    description = models.CharField(max_length=255, blank=True)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="seller")
+    image_url = models.ImageField(null=True, blank=True)
+    starting_bid =  models.DecimalField(max_digits=10, decimal_places=2)
+    is_active = models.BooleanField(default=True)
+    category = 
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __str__(self):
+        return f"{self.title}: is {self.startin_bid} and is being sold by {self.seller}"
 
 #id, watcher, and listing
 class Watchlist(models.Model):
-    #ManyToMany.UserListing
-    pass
+    #id
+    watcher = models.ForeignKey(User, on_delete=models.CASCADE, related_name="watchlist")
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listings")
+    
+    def __str__(self):
+        return f"{self.watcher.username} listed {self.listing.id}"
 
 
 #comment will track author, text created, a timestamp of the comment, and which listing the comment is associated with
@@ -51,4 +73,4 @@ class Comment(models.Model):
         ordering =['timestamp']
     
     def __str__(self):
-        return 'Comment {} by {}' .format(self.body, self.name)
+        return 'Comment {} by {}' .format(self.author, self.body)
