@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+from .forms import *
 from .models import *
 
 
@@ -64,13 +65,9 @@ def register(request):
         return render(request, "auctions/register.html")
 
 ## added code here ##
-
-
-def comment(request, listing_id):
-
 @login_required
 def create_listing(request):
-   if request.method == "POST":
+    if request.method == "POST":
         user = User.objects.get(username=request.user)
         form = ListingForm(request.POST, request.FILES)
         if form.is_valid():

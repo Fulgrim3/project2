@@ -42,8 +42,7 @@ CATEGORIES = (
 #    category 
 #    timestamp 
 #TODO fix the id 
-class Listing():
-    #id = 
+class Listing(models.Model): 
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=255, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="seller")
@@ -72,10 +71,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author")
     body = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
-
-    #this listing tab may need to be deleted...
-    #TODO
-    #listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="get_comments")
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="get_comments")
 
     class Meta: 
         ordering =['timestamp']
