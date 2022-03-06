@@ -120,3 +120,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+###added at the end due to .ed post 
+#https://edstem.org/us/courses/17767/discussion/1199221 
+#DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
