@@ -63,7 +63,7 @@ class Watchlist(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listings")
     
     def __str__(self):
-        return f"{self.watcher.username} listed {self.listing.id}"
+        return f"{self.user.username} listed {self.listing.id}"
 
 
 #comment will track author, text created, a timestamp of the comment, and which listing the comment is associated with
