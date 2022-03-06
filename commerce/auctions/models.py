@@ -1,8 +1,8 @@
 from logging.handlers import WatchedFileHandler
 from pyexpat import model
+from this import d
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from matplotlib import is_interactive
 #from matplotlib.pyplot import title
 
 #create comment here
@@ -50,7 +50,7 @@ class Listing():
     image_url = models.ImageField(null=True, blank=True)
     starting_bid =  models.DecimalField(max_digits=10, decimal_places=2)
     is_active = models.BooleanField(default=True)
-    category = models.CharField(max_length=1, choices=CATEGORIES, default=CATEGORIES[6][1])
+    category = models.CharField(max_length=3, choices=CATEGORIES, default=d)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
