@@ -22,9 +22,17 @@ class Bid(models.Model):
     def __str__(self):
         return f"{self.bidder} put a bid in for {self.amount}"
 
-#it's a catoary that tracks the ID, and the name associated with the type of catagory 
-class Category():
-    pass
+#it's a catoary that tracks the ID, and the name associated with the type of catagory. Categories are freeform from a dropdown menu. 
+
+CATEGORIES = (
+    ('a', 'Clothing, Shoes & Accessories'),
+    ('b', 'Baby'),
+    ('c', 'Food'),
+    ('d', 'Miscellaneous'),
+    ('e', 'Electronics'),
+    ('f', 'None'),
+)
+
 #listing is the main table that will branch from all other tables... id title
 #    description 
 #    seller 
@@ -42,7 +50,7 @@ class Listing():
     image_url = models.ImageField(null=True, blank=True)
     starting_bid =  models.DecimalField(max_digits=10, decimal_places=2)
     is_active = models.BooleanField(default=True)
-    category = 
+    category = models.CharField(max_length=1, choices=CATEGORIES, default=CATEGORIES[6][1])
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
@@ -66,7 +74,7 @@ class Comment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
 
     #this listing tab may need to be deleted...
-    #TODO #1
+    #TODO
     #listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="get_comments")
 
     class Meta: 
